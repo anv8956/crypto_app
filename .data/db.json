@@ -1,0 +1,1183 @@
+{
+  "users": [
+    {
+      "id": "user_aman_in",
+      "email": "aman@example.com",
+      "passwordHash": "$2a$10$wN35p5J7k6Q9qB6XyBvB9u1zQfK7/4T.h8K6xG2A6Vb5L6P1C6V5u",
+      "role": "SENDER",
+      "emailVerified": true,
+      "twoFactorEnabled": false,
+      "createdAt": "2026-09-21T16:51:07.276Z",
+      "updatedAt": "2026-10-21T16:51:07.280Z"
+    },
+    {
+      "id": "user_rahul_us",
+      "email": "rahul@example.com",
+      "passwordHash": "$2a$10$wN35p5J7k6Q9qB6XyBvB9u1zQfK7/4T.h8K6xG2A6Vb5L6P1C6V5u",
+      "role": "RECIPIENT",
+      "emailVerified": true,
+      "twoFactorEnabled": false,
+      "createdAt": "2026-09-26T16:51:07.280Z",
+      "updatedAt": "2026-10-21T16:51:07.280Z"
+    },
+    {
+      "id": "user_admin_elena",
+      "email": "compliance@borderless.io",
+      "passwordHash": "$2a$10$wN35p5J7k6Q9qB6XyBvB9u1zQfK7/4T.h8K6xG2A6Vb5L6P1C6V5u",
+      "role": "COMPLIANCE_OFFICER",
+      "emailVerified": true,
+      "twoFactorEnabled": true,
+      "createdAt": "2026-07-23T16:51:07.280Z",
+      "updatedAt": "2026-10-21T16:51:07.280Z"
+    }
+  ],
+  "profiles": [
+    {
+      "id": "prof_aman",
+      "userId": "user_aman_in",
+      "legalFirstName": "Aman",
+      "legalLastName": "Sharma",
+      "countryOfResidence": "IN",
+      "phoneNumber": "+91 98765 43210",
+      "addressLine1": "B-402 Prestige Palms, Indiranagar",
+      "city": "Bengaluru",
+      "state": "Karnataka",
+      "postalCode": "560038",
+      "dateOfBirth": "1993-06-15",
+      "taxIdNumber": "ABCPS1234F",
+      "occupation": "Staff Software Engineer",
+      "sourceOfFunds": "Salary / Employment Income"
+    },
+    {
+      "id": "prof_rahul",
+      "userId": "user_rahul_us",
+      "legalFirstName": "Rahul",
+      "legalLastName": "Patel",
+      "countryOfResidence": "US",
+      "phoneNumber": "+1 (415) 555-0194",
+      "addressLine1": "742 Montgomery Street, Apt 5B",
+      "city": "San Francisco",
+      "state": "CA",
+      "postalCode": "94111",
+      "dateOfBirth": "1992-11-20",
+      "taxIdNumber": "XXX-XX-7842",
+      "occupation": "Product Designer",
+      "sourceOfFunds": "Consulting Income"
+    },
+    {
+      "id": "prof_elena",
+      "userId": "user_admin_elena",
+      "legalFirstName": "Elena",
+      "legalLastName": "Vance",
+      "countryOfResidence": "US",
+      "phoneNumber": "+1 (212) 555-8821",
+      "addressLine1": "100 Wall Street, Suite 1400",
+      "city": "New York",
+      "state": "NY",
+      "postalCode": "10005",
+      "dateOfBirth": "1985-04-12",
+      "taxIdNumber": "XXX-XX-9102",
+      "occupation": "Chief Compliance & AML Officer",
+      "sourceOfFunds": "Company Officer"
+    }
+  ],
+  "verifications": [
+    {
+      "id": "verif_aman",
+      "userId": "user_aman_in",
+      "tier": "TIER_2_ENHANCED",
+      "status": "VERIFIED",
+      "idDocumentType": "AADHAAR / PASSPORT",
+      "idDocumentNumber": "**** **** 8219",
+      "riskScore": 12,
+      "riskLevel": "LOW",
+      "sanctionScreened": true,
+      "pepScreened": true,
+      "reviewedBy": "system_auto_kyc",
+      "reviewNotes": "FIU-IND compliant Aadhaar OTP verification passed. PAN validated via NSDL.",
+      "verifiedAt": "2026-09-23T16:51:07.280Z",
+      "createdAt": "2026-09-22T16:51:07.280Z",
+      "updatedAt": "2026-09-23T16:51:07.280Z"
+    },
+    {
+      "id": "verif_rahul",
+      "userId": "user_rahul_us",
+      "tier": "TIER_2_ENHANCED",
+      "status": "VERIFIED",
+      "idDocumentType": "US_DRIVER_LICENSE",
+      "idDocumentNumber": "CA-D918231",
+      "riskScore": 8,
+      "riskLevel": "LOW",
+      "sanctionScreened": true,
+      "pepScreened": true,
+      "reviewedBy": "system_auto_kyc",
+      "reviewNotes": "California RealID verified. US SSN matched with credit bureau reference.",
+      "verifiedAt": "2026-09-27T16:51:07.280Z",
+      "createdAt": "2026-09-26T16:51:07.280Z",
+      "updatedAt": "2026-09-27T16:51:07.280Z"
+    },
+    {
+      "id": "verif_elena",
+      "userId": "user_admin_elena",
+      "tier": "TIER_3_UNLIMITED",
+      "status": "VERIFIED",
+      "idDocumentType": "US_PASSPORT",
+      "idDocumentNumber": "US-9281034",
+      "riskScore": 0,
+      "riskLevel": "LOW",
+      "sanctionScreened": true,
+      "pepScreened": true,
+      "reviewedBy": "board_admin",
+      "reviewNotes": "Authorized Compliance Officer profile",
+      "verifiedAt": "2026-07-23T16:51:07.280Z",
+      "createdAt": "2026-07-23T16:51:07.280Z",
+      "updatedAt": "2026-07-23T16:51:07.280Z"
+    }
+  ],
+  "recipients": [
+    {
+      "id": "recip_rahul",
+      "senderId": "user_aman_in",
+      "linkedUserId": "user_rahul_us",
+      "fullName": "Rahul Patel",
+      "email": "rahul@example.com",
+      "phone": "+1 (415) 555-0194",
+      "country": "US",
+      "payoutMethod": "US_FEDNOW",
+      "relationship": "Close Friend / Former Colleague",
+      "isVerified": true,
+      "bankAccount": {
+        "id": "bank_rahul_1",
+        "recipientId": "recip_rahul",
+        "bankName": "JPMorgan Chase Bank, N.A.",
+        "accountNumberMasked": "•••• •••• 7842",
+        "routingNumber": "021000021",
+        "accountType": "CHECKING",
+        "currency": "USD",
+        "createdAt": "2026-10-01T16:51:07.280Z"
+      },
+      "createdAt": "2026-10-01T16:51:07.280Z"
+    },
+    {
+      "id": "recip_sarah",
+      "senderId": "user_aman_in",
+      "fullName": "Sarah Jenkins",
+      "email": "sarah.j@example.co.uk",
+      "phone": "+44 7700 900123",
+      "country": "GB",
+      "payoutMethod": "UK_FPS",
+      "relationship": "Contractor / UX Specialist",
+      "isVerified": true,
+      "bankAccount": {
+        "id": "bank_sarah_1",
+        "recipientId": "recip_sarah",
+        "bankName": "Barclays Bank UK PLC",
+        "accountNumberMasked": "•••• 0194",
+        "routingNumber": "20-00-00",
+        "accountType": "CHECKING",
+        "currency": "GBP",
+        "createdAt": "2026-10-06T16:51:07.280Z"
+      },
+      "createdAt": "2026-10-06T16:51:07.280Z"
+    },
+    {
+      "id": "recip_priya",
+      "senderId": "user_aman_in",
+      "fullName": "Priya Sharma",
+      "email": "priya.sharma@example.in",
+      "phone": "+91 94481 22334",
+      "country": "IN",
+      "payoutMethod": "IN_IMPS",
+      "relationship": "Family Member (Sister)",
+      "isVerified": true,
+      "bankAccount": {
+        "id": "bank_priya_1",
+        "recipientId": "recip_priya",
+        "bankName": "HDFC Bank Ltd",
+        "accountNumberMasked": "•••• •••• 4390",
+        "ifscCode": "HDFC0001234",
+        "accountType": "SAVINGS",
+        "currency": "INR",
+        "createdAt": "2026-10-11T16:51:07.280Z"
+      },
+      "createdAt": "2026-10-11T16:51:07.280Z"
+    }
+  ],
+  "quotes": [
+    {
+      "id": "quote_1792601467284_1x1q5",
+      "quoteReference": "QTE-INR-USD-396852",
+      "senderId": "user_aman_in",
+      "sourceCurrency": "INR",
+      "sourceAmount": 10000,
+      "targetCurrency": "USD",
+      "targetAmount": 115.31,
+      "stablecoinSymbol": "USDC",
+      "stablecoinAmount": 115.31,
+      "networkId": "polygon",
+      "fxRateSourceToUSD": 0.011571,
+      "marketRate": 0.011571395510298541,
+      "guaranteedRate": 0.011531,
+      "spreadPercent": 0.35,
+      "expiresAt": "2026-10-21T17:06:07.284Z",
+      "createdAt": "2026-10-21T16:51:07.284Z",
+      "fees": {
+        "onrampFeeFiat": 35,
+        "applicationFeeFiat": 25,
+        "networkFeeFiat": 0.86,
+        "offrampFeeFiat": 20,
+        "totalFeeFiat": 80.86,
+        "totalChargedFiat": 10080.86
+      },
+      "estimatedDeliveryMinutes": 2
+    },
+    {
+      "id": "quote_1792601467288_gu9lg",
+      "quoteReference": "QTE-INR-USD-512367",
+      "senderId": "user_aman_in",
+      "sourceCurrency": "INR",
+      "sourceAmount": 10000,
+      "targetCurrency": "USD",
+      "targetAmount": 115.31,
+      "stablecoinSymbol": "USDC",
+      "stablecoinAmount": 115.31,
+      "networkId": "polygon",
+      "fxRateSourceToUSD": 0.011571,
+      "marketRate": 0.011571395510298541,
+      "guaranteedRate": 0.011531,
+      "spreadPercent": 0.35,
+      "expiresAt": "2026-10-21T17:06:07.288Z",
+      "createdAt": "2026-10-21T16:51:07.288Z",
+      "fees": {
+        "onrampFeeFiat": 35,
+        "applicationFeeFiat": 25,
+        "networkFeeFiat": 0.86,
+        "offrampFeeFiat": 20,
+        "totalFeeFiat": 80.86,
+        "totalChargedFiat": 10080.86
+      },
+      "estimatedDeliveryMinutes": 2
+    },
+    {
+      "id": "quote_1792601482814_9sa6f",
+      "quoteReference": "QTE-INR-USD-295860",
+      "senderId": "user_aman_in",
+      "sourceCurrency": "INR",
+      "sourceAmount": 10000,
+      "targetCurrency": "USD",
+      "targetAmount": 115.31,
+      "stablecoinSymbol": "USDC",
+      "stablecoinAmount": 115.31,
+      "networkId": "polygon",
+      "fxRateSourceToUSD": 0.011571,
+      "marketRate": 0.011571395510298541,
+      "guaranteedRate": 0.011531,
+      "spreadPercent": 0.35,
+      "expiresAt": "2026-10-21T17:06:22.814Z",
+      "createdAt": "2026-10-21T16:51:22.814Z",
+      "fees": {
+        "onrampFeeFiat": 35,
+        "applicationFeeFiat": 25,
+        "networkFeeFiat": 0.86,
+        "offrampFeeFiat": 20,
+        "totalFeeFiat": 80.86,
+        "totalChargedFiat": 10080.86
+      },
+      "estimatedDeliveryMinutes": 2
+    },
+    {
+      "id": "quote_1792601482817_y38a1",
+      "quoteReference": "QTE-INR-USD-589213",
+      "senderId": "user_aman_in",
+      "sourceCurrency": "INR",
+      "sourceAmount": 10000,
+      "targetCurrency": "USD",
+      "targetAmount": 115.31,
+      "stablecoinSymbol": "USDC",
+      "stablecoinAmount": 115.31,
+      "networkId": "polygon",
+      "fxRateSourceToUSD": 0.011571,
+      "marketRate": 0.011571395510298541,
+      "guaranteedRate": 0.011531,
+      "spreadPercent": 0.35,
+      "expiresAt": "2026-10-21T17:06:22.817Z",
+      "createdAt": "2026-10-21T16:51:22.817Z",
+      "fees": {
+        "onrampFeeFiat": 35,
+        "applicationFeeFiat": 25,
+        "networkFeeFiat": 0.86,
+        "offrampFeeFiat": 20,
+        "totalFeeFiat": 80.86,
+        "totalChargedFiat": 10080.86
+      },
+      "estimatedDeliveryMinutes": 2
+    }
+  ],
+  "transfers": [
+    {
+      "id": "trf_e2e_test_1792601482818",
+      "transferNumber": "TRF-TEST-1792601482818",
+      "senderId": "user_aman_in",
+      "recipientId": "recip_rahul",
+      "recipientUserId": "user_rahul_us",
+      "quoteId": "quote_1792601482817_y38a1",
+      "quote": {
+        "id": "quote_1792601482817_y38a1",
+        "quoteReference": "QTE-INR-USD-589213",
+        "senderId": "user_aman_in",
+        "sourceCurrency": "INR",
+        "sourceAmount": 10000,
+        "targetCurrency": "USD",
+        "targetAmount": 115.31,
+        "stablecoinSymbol": "USDC",
+        "stablecoinAmount": 115.31,
+        "networkId": "polygon",
+        "fxRateSourceToUSD": 0.011571,
+        "marketRate": 0.011571395510298541,
+        "guaranteedRate": 0.011531,
+        "spreadPercent": 0.35,
+        "expiresAt": "2026-10-21T17:06:22.817Z",
+        "createdAt": "2026-10-21T16:51:22.817Z",
+        "fees": {
+          "onrampFeeFiat": 35,
+          "applicationFeeFiat": 25,
+          "networkFeeFiat": 0.86,
+          "offrampFeeFiat": 20,
+          "totalFeeFiat": 80.86,
+          "totalChargedFiat": 10080.86
+        },
+        "estimatedDeliveryMinutes": 2
+      },
+      "status": "COMPLETED",
+      "idempotencyKey": "idem_test_1792601482818",
+      "purposeOfPayment": "FAMILY_MAINTENANCE",
+      "sourceCurrency": "INR",
+      "sourceAmount": 10000,
+      "targetCurrency": "USD",
+      "targetAmount": 115.31,
+      "stablecoinSymbol": "USDC",
+      "stablecoinAmount": 115.31,
+      "networkId": "polygon",
+      "events": [
+        {
+          "id": "evt_1792601482819_tmfi",
+          "transferId": "trf_e2e_test_1792601482818",
+          "previousStatus": "AWAITING_FUNDING",
+          "newStatus": "FUNDED",
+          "reason": "INR 10000 confirmed by on-ramp provider (Razorpay Sandbox Direct)",
+          "actorRole": "PROVIDER",
+          "createdAt": "2026-10-21T16:51:22.819Z"
+        },
+        {
+          "id": "evt_1792601482831_i9zq",
+          "transferId": "trf_e2e_test_1792601482818",
+          "previousStatus": "FUNDED",
+          "newStatus": "COMPLIANCE_REVIEW",
+          "reason": "Automated AML & sanctions checks passed with clean risk score (10/100)",
+          "actorRole": "SYSTEM",
+          "createdAt": "2026-10-21T16:51:22.831Z"
+        },
+        {
+          "id": "evt_1792601482843_7hfv",
+          "transferId": "trf_e2e_test_1792601482818",
+          "previousStatus": "COMPLIANCE_REVIEW",
+          "newStatus": "CONVERSION_PENDING",
+          "reason": "Allocating liquidity pool for 115.31 USDC minting",
+          "actorRole": "SYSTEM",
+          "createdAt": "2026-10-21T16:51:22.843Z"
+        },
+        {
+          "id": "evt_1792601482854_98w2",
+          "transferId": "trf_e2e_test_1792601482818",
+          "previousStatus": "CONVERSION_PENDING",
+          "newStatus": "CRYPTO_TRANSFER_PENDING",
+          "reason": "Broadcasting 115.31 USDC transaction to polygon network",
+          "actorRole": "SYSTEM",
+          "createdAt": "2026-10-21T16:51:22.854Z"
+        },
+        {
+          "id": "evt_1792601482866_u9zg",
+          "transferId": "trf_e2e_test_1792601482818",
+          "previousStatus": "CRYPTO_TRANSFER_PENDING",
+          "newStatus": "CRYPTO_SETTLED",
+          "reason": "Settled on-chain in Block #64821470 with 5 confirmations (tx: 0xd48caaf9...)",
+          "actorRole": "SYSTEM",
+          "metadata": {
+            "txHash": "0xd48caaf9b9818c273ef0476350a3b823871d9214d2b4fd3b724ea2c443aab3fb",
+            "explorerUrl": "https://polygonscan.com/tx/0xd48caaf9b9818c273ef0476350a3b823871d9214d2b4fd3b724ea2c443aab3fb"
+          },
+          "createdAt": "2026-10-21T16:51:22.866Z"
+        },
+        {
+          "id": "evt_1792601482878_qic3",
+          "transferId": "trf_e2e_test_1792601482818",
+          "previousStatus": "CRYPTO_SETTLED",
+          "newStatus": "PAYOUT_PENDING",
+          "reason": "Initiating fiat local currency payout of USD 115.31 to destination bank",
+          "actorRole": "PROVIDER",
+          "createdAt": "2026-10-21T16:51:22.878Z"
+        },
+        {
+          "id": "evt_1792601482890_pw6z",
+          "transferId": "trf_e2e_test_1792601482818",
+          "previousStatus": "PAYOUT_PENDING",
+          "newStatus": "COMPLETED",
+          "reason": "Funds successfully delivered into recipient's account. Payout confirmed by clearing partner.",
+          "actorRole": "PROVIDER",
+          "createdAt": "2026-10-21T16:51:22.890Z"
+        }
+      ],
+      "createdAt": "2026-10-21T16:51:22.818Z",
+      "updatedAt": "2026-10-21T16:51:22.890Z",
+      "fundingOrder": {
+        "id": "fo_1792601482819_w9p9",
+        "transferId": "trf_e2e_test_1792601482818",
+        "providerName": "Razorpay Sandbox Direct",
+        "providerOrderId": "ord_inr_1792601482819_7456",
+        "paymentMethod": "UPI",
+        "amount": 10000,
+        "currency": "INR",
+        "status": "CAPTURED",
+        "paymentDetails": "Method: UPI (Simulated Sandbox Approval)",
+        "authorizedAt": "2026-10-21T16:51:22.819Z",
+        "createdAt": "2026-10-21T16:51:22.819Z"
+      },
+      "fundedAt": "2026-10-21T16:51:22.820Z",
+      "complianceCase": {
+        "id": "case_1792601482831_zbd8",
+        "transferId": "trf_e2e_test_1792601482818",
+        "assignedOfficerId": "user_admin_elena",
+        "riskScore": 10,
+        "riskLevel": "LOW",
+        "flagReasons": [],
+        "sanctionHit": false,
+        "travelRuleStatus": "EXEMPT",
+        "status": "CLEARED",
+        "createdAt": "2026-10-21T16:51:22.831Z"
+      },
+      "blockchainTx": {
+        "id": "tx_1792601482866_3jsr",
+        "transferId": "trf_e2e_test_1792601482818",
+        "networkId": "polygon",
+        "tokenSymbol": "USDC",
+        "tokenAddress": "0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359",
+        "txHash": "0xd48caaf9b9818c273ef0476350a3b823871d9214d2b4fd3b724ea2c443aab3fb",
+        "fromAddress": "0x71C836e4D2E55d21a22A8fCd945766e4a29a3411",
+        "toAddress": "0x19a081518D4b50c0c00EbEc8771A9f04123FaC17",
+        "amountUnits": 115.31,
+        "gasPriceGwei": 32.5,
+        "gasUsed": 65000,
+        "blockNumber": 64821470,
+        "confirmations": 5,
+        "status": "CONFIRMED",
+        "explorerUrl": "https://polygonscan.com/tx/0xd48caaf9b9818c273ef0476350a3b823871d9214d2b4fd3b724ea2c443aab3fb",
+        "settledAt": "2026-10-21T16:51:22.866Z",
+        "createdAt": "2026-10-21T16:51:22.866Z"
+      },
+      "cryptoSettledAt": "2026-10-21T16:51:22.867Z",
+      "payoutOrder": {
+        "id": "po_1792601482890_c3b9",
+        "transferId": "trf_e2e_test_1792601482818",
+        "providerName": "FedNow Instant Rail",
+        "providerPayoutId": "payout_usd_1792601482890_4277",
+        "payoutMethod": "US_FEDNOW",
+        "amount": 115.31,
+        "currency": "USD",
+        "destinationBank": "JPMorgan Chase Bank, N.A.",
+        "accountNumberMasked": "•••• •••• 7842",
+        "fedReferenceNumber": "FED202610215823475",
+        "status": "PAID_OUT",
+        "paidOutAt": "2026-10-21T16:51:22.890Z",
+        "createdAt": "2026-10-21T16:51:22.890Z"
+      },
+      "completedAt": "2026-10-21T16:51:22.890Z"
+    },
+    {
+      "id": "trf_e2e_test_1792601467295",
+      "transferNumber": "TRF-TEST-1792601467295",
+      "senderId": "user_aman_in",
+      "recipientId": "recip_rahul",
+      "recipientUserId": "user_rahul_us",
+      "quoteId": "quote_1792601467288_gu9lg",
+      "quote": {
+        "id": "quote_1792601467288_gu9lg",
+        "quoteReference": "QTE-INR-USD-512367",
+        "senderId": "user_aman_in",
+        "sourceCurrency": "INR",
+        "sourceAmount": 10000,
+        "targetCurrency": "USD",
+        "targetAmount": 115.31,
+        "stablecoinSymbol": "USDC",
+        "stablecoinAmount": 115.31,
+        "networkId": "polygon",
+        "fxRateSourceToUSD": 0.011571,
+        "marketRate": 0.011571395510298541,
+        "guaranteedRate": 0.011531,
+        "spreadPercent": 0.35,
+        "expiresAt": "2026-10-21T17:06:07.288Z",
+        "createdAt": "2026-10-21T16:51:07.288Z",
+        "fees": {
+          "onrampFeeFiat": 35,
+          "applicationFeeFiat": 25,
+          "networkFeeFiat": 0.86,
+          "offrampFeeFiat": 20,
+          "totalFeeFiat": 80.86,
+          "totalChargedFiat": 10080.86
+        },
+        "estimatedDeliveryMinutes": 2
+      },
+      "status": "COMPLETED",
+      "idempotencyKey": "idem_test_1792601467295",
+      "purposeOfPayment": "FAMILY_MAINTENANCE",
+      "sourceCurrency": "INR",
+      "sourceAmount": 10000,
+      "targetCurrency": "USD",
+      "targetAmount": 115.31,
+      "stablecoinSymbol": "USDC",
+      "stablecoinAmount": 115.31,
+      "networkId": "polygon",
+      "events": [
+        {
+          "id": "evt_1792601467297_2lte",
+          "transferId": "trf_e2e_test_1792601467295",
+          "previousStatus": "AWAITING_FUNDING",
+          "newStatus": "FUNDED",
+          "reason": "INR 10000 confirmed by on-ramp provider (Razorpay Sandbox Direct)",
+          "actorRole": "PROVIDER",
+          "createdAt": "2026-10-21T16:51:07.297Z"
+        },
+        {
+          "id": "evt_1792601467308_ku3y",
+          "transferId": "trf_e2e_test_1792601467295",
+          "previousStatus": "FUNDED",
+          "newStatus": "COMPLIANCE_REVIEW",
+          "reason": "Automated AML & sanctions checks passed with clean risk score (10/100)",
+          "actorRole": "SYSTEM",
+          "createdAt": "2026-10-21T16:51:07.308Z"
+        },
+        {
+          "id": "evt_1792601467320_958r",
+          "transferId": "trf_e2e_test_1792601467295",
+          "previousStatus": "COMPLIANCE_REVIEW",
+          "newStatus": "CONVERSION_PENDING",
+          "reason": "Allocating liquidity pool for 115.31 USDC minting",
+          "actorRole": "SYSTEM",
+          "createdAt": "2026-10-21T16:51:07.320Z"
+        },
+        {
+          "id": "evt_1792601467332_jzb5",
+          "transferId": "trf_e2e_test_1792601467295",
+          "previousStatus": "CONVERSION_PENDING",
+          "newStatus": "CRYPTO_TRANSFER_PENDING",
+          "reason": "Broadcasting 115.31 USDC transaction to polygon network",
+          "actorRole": "SYSTEM",
+          "createdAt": "2026-10-21T16:51:07.332Z"
+        },
+        {
+          "id": "evt_1792601467345_9aen",
+          "transferId": "trf_e2e_test_1792601467295",
+          "previousStatus": "CRYPTO_TRANSFER_PENDING",
+          "newStatus": "CRYPTO_SETTLED",
+          "reason": "Settled on-chain in Block #64846282 with 5 confirmations (tx: 0xa3a1ef7e...)",
+          "actorRole": "SYSTEM",
+          "metadata": {
+            "txHash": "0xa3a1ef7e3f0600cea14c5dee8b34f18b5a691870b9fcee51fa509863840bb7ea",
+            "explorerUrl": "https://polygonscan.com/tx/0xa3a1ef7e3f0600cea14c5dee8b34f18b5a691870b9fcee51fa509863840bb7ea"
+          },
+          "createdAt": "2026-10-21T16:51:07.345Z"
+        },
+        {
+          "id": "evt_1792601467357_ro65",
+          "transferId": "trf_e2e_test_1792601467295",
+          "previousStatus": "CRYPTO_SETTLED",
+          "newStatus": "PAYOUT_PENDING",
+          "reason": "Initiating fiat local currency payout of USD 115.31 to destination bank",
+          "actorRole": "PROVIDER",
+          "createdAt": "2026-10-21T16:51:07.357Z"
+        },
+        {
+          "id": "evt_1792601467376_65ce",
+          "transferId": "trf_e2e_test_1792601467295",
+          "previousStatus": "PAYOUT_PENDING",
+          "newStatus": "COMPLETED",
+          "reason": "Funds successfully delivered into recipient's account. Payout confirmed by clearing partner.",
+          "actorRole": "PROVIDER",
+          "createdAt": "2026-10-21T16:51:07.376Z"
+        }
+      ],
+      "createdAt": "2026-10-21T16:51:07.295Z",
+      "updatedAt": "2026-10-21T16:51:07.377Z",
+      "fundingOrder": {
+        "id": "fo_1792601467296_tcfq",
+        "transferId": "trf_e2e_test_1792601467295",
+        "providerName": "Razorpay Sandbox Direct",
+        "providerOrderId": "ord_inr_1792601467296_5244",
+        "paymentMethod": "UPI",
+        "amount": 10000,
+        "currency": "INR",
+        "status": "CAPTURED",
+        "paymentDetails": "Method: UPI (Simulated Sandbox Approval)",
+        "authorizedAt": "2026-10-21T16:51:07.296Z",
+        "createdAt": "2026-10-21T16:51:07.296Z"
+      },
+      "fundedAt": "2026-10-21T16:51:07.297Z",
+      "complianceCase": {
+        "id": "case_1792601467308_5jun",
+        "transferId": "trf_e2e_test_1792601467295",
+        "assignedOfficerId": "user_admin_elena",
+        "riskScore": 10,
+        "riskLevel": "LOW",
+        "flagReasons": [],
+        "sanctionHit": false,
+        "travelRuleStatus": "EXEMPT",
+        "status": "CLEARED",
+        "createdAt": "2026-10-21T16:51:07.308Z"
+      },
+      "blockchainTx": {
+        "id": "tx_1792601467345_o969",
+        "transferId": "trf_e2e_test_1792601467295",
+        "networkId": "polygon",
+        "tokenSymbol": "USDC",
+        "tokenAddress": "0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359",
+        "txHash": "0xa3a1ef7e3f0600cea14c5dee8b34f18b5a691870b9fcee51fa509863840bb7ea",
+        "fromAddress": "0x71C836e4D2E55d21a22A8fCd945766e4a29a3411",
+        "toAddress": "0x19a081518D4b50c0c00EbEc8771A9f04123FaC17",
+        "amountUnits": 115.31,
+        "gasPriceGwei": 32.5,
+        "gasUsed": 65000,
+        "blockNumber": 64846282,
+        "confirmations": 5,
+        "status": "CONFIRMED",
+        "explorerUrl": "https://polygonscan.com/tx/0xa3a1ef7e3f0600cea14c5dee8b34f18b5a691870b9fcee51fa509863840bb7ea",
+        "settledAt": "2026-10-21T16:51:07.345Z",
+        "createdAt": "2026-10-21T16:51:07.345Z"
+      },
+      "cryptoSettledAt": "2026-10-21T16:51:07.345Z",
+      "payoutOrder": {
+        "id": "po_1792601467376_7q3v",
+        "transferId": "trf_e2e_test_1792601467295",
+        "providerName": "FedNow Instant Rail",
+        "providerPayoutId": "payout_usd_1792601467376_9409",
+        "payoutMethod": "US_FEDNOW",
+        "amount": 115.31,
+        "currency": "USD",
+        "destinationBank": "JPMorgan Chase Bank, N.A.",
+        "accountNumberMasked": "•••• •••• 7842",
+        "fedReferenceNumber": "FED202610217815783",
+        "status": "PAID_OUT",
+        "paidOutAt": "2026-10-21T16:51:07.376Z",
+        "createdAt": "2026-10-21T16:51:07.376Z"
+      },
+      "completedAt": "2026-10-21T16:51:07.377Z"
+    },
+    {
+      "id": "trf_demo_completed_1",
+      "transferNumber": "TRF-2026-IN-US-8941",
+      "senderId": "user_aman_in",
+      "recipientId": "recip_rahul",
+      "recipientUserId": "user_rahul_us",
+      "quoteId": "quote_demo_1",
+      "status": "COMPLETED",
+      "idempotencyKey": "idem_seed_8941_complete",
+      "purposeOfPayment": "GIFT_OR_DONATION",
+      "senderNotes": "Split for anniversary dinner & concert tickets",
+      "sourceCurrency": "INR",
+      "sourceAmount": 25000,
+      "targetCurrency": "USD",
+      "targetAmount": 286.4,
+      "stablecoinSymbol": "USDC",
+      "stablecoinAmount": 288.1,
+      "networkId": "polygon",
+      "fundedAt": "2026-10-16T16:51:07.280Z",
+      "cryptoSettledAt": "2026-10-16T16:51:52.280Z",
+      "completedAt": "2026-10-16T16:53:07.280Z",
+      "createdAt": "2026-10-16T16:51:07.280Z",
+      "updatedAt": "2026-10-16T16:53:07.280Z",
+      "events": [
+        {
+          "id": "evt_1_1",
+          "transferId": "trf_demo_completed_1",
+          "previousStatus": null,
+          "newStatus": "DRAFT",
+          "reason": "Transfer initiated by sender",
+          "actorRole": "SENDER",
+          "createdAt": "2026-10-16T16:51:07.280Z"
+        },
+        {
+          "id": "evt_1_2",
+          "transferId": "trf_demo_completed_1",
+          "previousStatus": "DRAFT",
+          "newStatus": "AWAITING_FUNDING",
+          "reason": "Guaranteed FX quote locked at 1 USD = 86.42 INR",
+          "actorRole": "SYSTEM",
+          "createdAt": "2026-10-16T16:51:12.280Z"
+        },
+        {
+          "id": "evt_1_3",
+          "transferId": "trf_demo_completed_1",
+          "previousStatus": "AWAITING_FUNDING",
+          "newStatus": "FUNDED",
+          "reason": "INR 25,000 received via UPI (UTR: 629103910245)",
+          "actorRole": "PROVIDER",
+          "createdAt": "2026-10-16T16:51:27.280Z"
+        },
+        {
+          "id": "evt_1_4",
+          "transferId": "trf_demo_completed_1",
+          "previousStatus": "FUNDED",
+          "newStatus": "COMPLIANCE_REVIEW",
+          "reason": "Automated AML & OFAC sanctions screening passed with risk score 12",
+          "actorRole": "SYSTEM",
+          "createdAt": "2026-10-16T16:51:29.280Z"
+        },
+        {
+          "id": "evt_1_5",
+          "transferId": "trf_demo_completed_1",
+          "previousStatus": "COMPLIANCE_REVIEW",
+          "newStatus": "CRYPTO_TRANSFER_PENDING",
+          "reason": "288.10 USDC dispatched to settlement pool on Polygon PoS",
+          "actorRole": "SYSTEM",
+          "createdAt": "2026-10-16T16:51:37.280Z"
+        },
+        {
+          "id": "evt_1_6",
+          "transferId": "trf_demo_completed_1",
+          "previousStatus": "CRYPTO_TRANSFER_PENDING",
+          "newStatus": "CRYPTO_SETTLED",
+          "reason": "Confirmed in Block #64,819,021 with 5/5 block confirmations",
+          "actorRole": "SYSTEM",
+          "createdAt": "2026-10-16T16:51:52.280Z"
+        },
+        {
+          "id": "evt_1_7",
+          "transferId": "trf_demo_completed_1",
+          "previousStatus": "CRYPTO_SETTLED",
+          "newStatus": "PAYOUT_PENDING",
+          "reason": "FedNow instant payout dispatched to JPMorgan Chase Bank ending in 7842",
+          "actorRole": "PROVIDER",
+          "createdAt": "2026-10-16T16:52:07.280Z"
+        },
+        {
+          "id": "evt_1_8",
+          "transferId": "trf_demo_completed_1",
+          "previousStatus": "PAYOUT_PENDING",
+          "newStatus": "COMPLETED",
+          "reason": "Recipient bank confirmed credit. Funds fully settled.",
+          "actorRole": "PROVIDER",
+          "createdAt": "2026-10-16T16:53:07.280Z"
+        }
+      ],
+      "blockchainTx": {
+        "id": "tx_demo_1",
+        "transferId": "trf_demo_completed_1",
+        "networkId": "polygon",
+        "tokenSymbol": "USDC",
+        "tokenAddress": "0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359",
+        "txHash": "0x8f2d9c1048b61a3d90234ea720c02821df75e1198c62b51201948da932bc3410",
+        "fromAddress": "0x71C836e4D2E55d21a22A8fCd945766e4a29a3411",
+        "toAddress": "0x19a081518D4b50c0c00EbEc8771A9f04123FaC17",
+        "amountUnits": 288.1,
+        "gasPriceGwei": 35.2,
+        "gasUsed": 65120,
+        "blockNumber": 64819021,
+        "confirmations": 120,
+        "status": "FINALIZED",
+        "explorerUrl": "https://polygonscan.com/tx/0x8f2d9c1048b61a3d90234ea720c02821df75e1198c62b51201948da932bc3410",
+        "settledAt": "2026-10-16T16:51:52.280Z",
+        "createdAt": "2026-10-16T16:51:37.280Z"
+      },
+      "fundingOrder": {
+        "id": "fo_demo_1",
+        "transferId": "trf_demo_completed_1",
+        "providerName": "Razorpay UPI Rail",
+        "providerOrderId": "order_IN_upi_619024",
+        "paymentMethod": "UPI",
+        "amount": 25000,
+        "currency": "INR",
+        "status": "CAPTURED",
+        "paymentDetails": "VPA: aman@okaxis | UTR: 629103910245",
+        "authorizedAt": "2026-10-16T16:51:27.280Z",
+        "createdAt": "2026-10-16T16:51:07.280Z"
+      },
+      "payoutOrder": {
+        "id": "po_demo_1",
+        "transferId": "trf_demo_completed_1",
+        "providerName": "Circle & FedNow Gateway",
+        "providerPayoutId": "fednow_tx_90124819",
+        "payoutMethod": "US_FEDNOW",
+        "amount": 286.4,
+        "currency": "USD",
+        "destinationBank": "JPMorgan Chase Bank, N.A.",
+        "accountNumberMasked": "•••• •••• 7842",
+        "fedReferenceNumber": "FED202610160081294",
+        "status": "PAID_OUT",
+        "paidOutAt": "2026-10-16T16:53:07.280Z",
+        "createdAt": "2026-10-16T16:52:07.280Z"
+      }
+    },
+    {
+      "id": "trf_demo_compliance_hold",
+      "transferNumber": "TRF-2026-IN-US-9214",
+      "senderId": "user_aman_in",
+      "recipientId": "recip_rahul",
+      "recipientUserId": "user_rahul_us",
+      "quoteId": "quote_demo_2",
+      "status": "COMPLIANCE_HOLD",
+      "idempotencyKey": "idem_seed_9214_hold",
+      "purposeOfPayment": "COMMERCIAL_SERVICES",
+      "senderNotes": "Quarterly web design retainer invoice #204",
+      "sourceCurrency": "INR",
+      "sourceAmount": 350000,
+      "targetCurrency": "USD",
+      "targetAmount": 4015,
+      "stablecoinSymbol": "USDC",
+      "stablecoinAmount": 4028.5,
+      "networkId": "polygon",
+      "fundedAt": "2026-10-21T14:51:07.280Z",
+      "createdAt": "2026-10-21T14:51:07.280Z",
+      "updatedAt": "2026-10-21T15:51:07.280Z",
+      "events": [
+        {
+          "id": "evt_2_1",
+          "transferId": "trf_demo_compliance_hold",
+          "previousStatus": null,
+          "newStatus": "DRAFT",
+          "reason": "Transfer initiated by sender",
+          "actorRole": "SENDER",
+          "createdAt": "2026-10-21T14:51:07.280Z"
+        },
+        {
+          "id": "evt_2_2",
+          "transferId": "trf_demo_compliance_hold",
+          "previousStatus": "DRAFT",
+          "newStatus": "AWAITING_FUNDING",
+          "reason": "Rate locked for large volume transfer",
+          "actorRole": "SYSTEM",
+          "createdAt": "2026-10-21T14:51:10.280Z"
+        },
+        {
+          "id": "evt_2_3",
+          "transferId": "trf_demo_compliance_hold",
+          "previousStatus": "AWAITING_FUNDING",
+          "newStatus": "FUNDED",
+          "reason": "INR 350,000 received via NetBanking RTGS (REF: RTGS9910248)",
+          "actorRole": "PROVIDER",
+          "createdAt": "2026-10-21T14:51:37.280Z"
+        },
+        {
+          "id": "evt_2_4",
+          "transferId": "trf_demo_compliance_hold",
+          "previousStatus": "FUNDED",
+          "newStatus": "COMPLIANCE_HOLD",
+          "reason": "Triggered FinCEN Travel Rule threshold (> $3,000 USD) and commercial invoice verification rule",
+          "actorRole": "SYSTEM",
+          "createdAt": "2026-10-21T14:51:42.280Z"
+        }
+      ],
+      "fundingOrder": {
+        "id": "fo_demo_2",
+        "transferId": "trf_demo_compliance_hold",
+        "providerName": "HDFC NetBanking Direct",
+        "providerOrderId": "order_IN_nb_992144",
+        "paymentMethod": "NET_BANKING",
+        "amount": 350000,
+        "currency": "INR",
+        "status": "CAPTURED",
+        "paymentDetails": "Bank Ref: RTGS9910248",
+        "authorizedAt": "2026-10-21T14:51:37.280Z",
+        "createdAt": "2026-10-21T14:51:07.280Z"
+      },
+      "complianceCase": {
+        "id": "case_seed_hold_1",
+        "transferId": "trf_demo_compliance_hold",
+        "assignedOfficerId": "user_admin_elena",
+        "riskScore": 68,
+        "riskLevel": "HIGH",
+        "flagReasons": [
+          "FinCEN Travel Rule requirement: Transfer exceeds $3,000 USD equivalent",
+          "India LRS Form A2 declaration verification pending",
+          "Commercial services remittance requires contract / invoice verification"
+        ],
+        "sanctionHit": false,
+        "travelRuleStatus": "INFO_REQUIRED",
+        "status": "OPEN",
+        "createdAt": "2026-10-21T14:51:42.280Z"
+      }
+    }
+  ],
+  "notifications": [
+    {
+      "id": "notif_1792601482891_ecm2",
+      "userId": "user_rahul_us",
+      "title": "Money Received in Bank",
+      "body": "You received USD 115.31 from Aman.",
+      "type": "PAYMENT_RECEIVED",
+      "transferId": "trf_e2e_test_1792601482818",
+      "isRead": false,
+      "createdAt": "2026-10-21T16:51:22.891Z"
+    },
+    {
+      "id": "notif_1792601482891_2jwb",
+      "userId": "user_aman_in",
+      "title": "Transfer Completed Successfully",
+      "body": "Your transfer TRF-TEST-1792601482818 of INR 10000 has been delivered to Rahul Patel.",
+      "type": "TRANSFER_STATUS",
+      "transferId": "trf_e2e_test_1792601482818",
+      "isRead": false,
+      "createdAt": "2026-10-21T16:51:22.891Z"
+    },
+    {
+      "id": "notif_1792601467378_rl0h",
+      "userId": "user_rahul_us",
+      "title": "Money Received in Bank",
+      "body": "You received USD 115.31 from Aman.",
+      "type": "PAYMENT_RECEIVED",
+      "transferId": "trf_e2e_test_1792601467295",
+      "isRead": false,
+      "createdAt": "2026-10-21T16:51:07.378Z"
+    },
+    {
+      "id": "notif_1792601467378_4b9h",
+      "userId": "user_aman_in",
+      "title": "Transfer Completed Successfully",
+      "body": "Your transfer TRF-TEST-1792601467295 of INR 10000 has been delivered to Rahul Patel.",
+      "type": "TRANSFER_STATUS",
+      "transferId": "trf_e2e_test_1792601467295",
+      "isRead": false,
+      "createdAt": "2026-10-21T16:51:07.378Z"
+    },
+    {
+      "id": "notif_1",
+      "userId": "user_aman_in",
+      "title": "Transfer Completed",
+      "body": "Your transfer TRF-2026-IN-US-8941 of ₹25,000 has been deposited into Rahul Patel’s account ($286.40 USD).",
+      "type": "TRANSFER_STATUS",
+      "transferId": "trf_demo_completed_1",
+      "isRead": false,
+      "createdAt": "2026-10-16T16:53:17.280Z"
+    },
+    {
+      "id": "notif_2",
+      "userId": "user_aman_in",
+      "title": "Compliance Review Notice",
+      "body": "Transfer TRF-2026-IN-US-9214 exceeds $3,000. Our compliance officer Elena Vance is reviewing the documentation.",
+      "type": "TRANSFER_STATUS",
+      "transferId": "trf_demo_compliance_hold",
+      "isRead": false,
+      "createdAt": "2026-10-21T14:51:07.280Z"
+    },
+    {
+      "id": "notif_3",
+      "userId": "user_rahul_us",
+      "title": "Incoming Money Received",
+      "body": "You received $286.40 USD from Aman Sharma via FedNow instant deposit into your Chase account.",
+      "type": "PAYMENT_RECEIVED",
+      "transferId": "trf_demo_completed_1",
+      "isRead": false,
+      "createdAt": "2026-10-16T16:53:12.280Z"
+    }
+  ],
+  "auditLogs": [
+    {
+      "id": "audit_1792601482891_hgw2",
+      "action": "STATUS_TRANSITION_COMPLETED",
+      "entityType": "Transfer",
+      "entityId": "trf_e2e_test_1792601482818",
+      "details": {
+        "from": "PAYOUT_PENDING",
+        "to": "COMPLETED",
+        "reason": "Funds successfully delivered into recipient's account. Payout confirmed by clearing partner.",
+        "actorRole": "PROVIDER"
+      },
+      "createdAt": "2026-10-21T16:51:22.891Z"
+    },
+    {
+      "id": "audit_1792601482878_1o38",
+      "action": "STATUS_TRANSITION_PAYOUT_PENDING",
+      "entityType": "Transfer",
+      "entityId": "trf_e2e_test_1792601482818",
+      "details": {
+        "from": "CRYPTO_SETTLED",
+        "to": "PAYOUT_PENDING",
+        "reason": "Initiating fiat local currency payout of USD 115.31 to destination bank",
+        "actorRole": "PROVIDER"
+      },
+      "createdAt": "2026-10-21T16:51:22.878Z"
+    },
+    {
+      "id": "audit_1792601482867_me3f",
+      "action": "STATUS_TRANSITION_CRYPTO_SETTLED",
+      "entityType": "Transfer",
+      "entityId": "trf_e2e_test_1792601482818",
+      "details": {
+        "from": "CRYPTO_TRANSFER_PENDING",
+        "to": "CRYPTO_SETTLED",
+        "reason": "Settled on-chain in Block #64821470 with 5 confirmations (tx: 0xd48caaf9...)",
+        "actorRole": "SYSTEM",
+        "metadata": {
+          "txHash": "0xd48caaf9b9818c273ef0476350a3b823871d9214d2b4fd3b724ea2c443aab3fb",
+          "explorerUrl": "https://polygonscan.com/tx/0xd48caaf9b9818c273ef0476350a3b823871d9214d2b4fd3b724ea2c443aab3fb"
+        }
+      },
+      "createdAt": "2026-10-21T16:51:22.867Z"
+    },
+    {
+      "id": "audit_1792601482855_1q4i",
+      "action": "STATUS_TRANSITION_CRYPTO_TRANSFER_PENDING",
+      "entityType": "Transfer",
+      "entityId": "trf_e2e_test_1792601482818",
+      "details": {
+        "from": "CONVERSION_PENDING",
+        "to": "CRYPTO_TRANSFER_PENDING",
+        "reason": "Broadcasting 115.31 USDC transaction to polygon network",
+        "actorRole": "SYSTEM"
+      },
+      "createdAt": "2026-10-21T16:51:22.855Z"
+    },
+    {
+      "id": "audit_1792601482843_kwya",
+      "action": "STATUS_TRANSITION_CONVERSION_PENDING",
+      "entityType": "Transfer",
+      "entityId": "trf_e2e_test_1792601482818",
+      "details": {
+        "from": "COMPLIANCE_REVIEW",
+        "to": "CONVERSION_PENDING",
+        "reason": "Allocating liquidity pool for 115.31 USDC minting",
+        "actorRole": "SYSTEM"
+      },
+      "createdAt": "2026-10-21T16:51:22.843Z"
+    },
+    {
+      "id": "audit_1792601482831_l297",
+      "action": "STATUS_TRANSITION_COMPLIANCE_REVIEW",
+      "entityType": "Transfer",
+      "entityId": "trf_e2e_test_1792601482818",
+      "details": {
+        "from": "FUNDED",
+        "to": "COMPLIANCE_REVIEW",
+        "reason": "Automated AML & sanctions checks passed with clean risk score (10/100)",
+        "actorRole": "SYSTEM"
+      },
+      "createdAt": "2026-10-21T16:51:22.831Z"
+    },
+    {
+      "id": "audit_1792601482820_chwo",
+      "action": "STATUS_TRANSITION_FUNDED",
+      "entityType": "Transfer",
+      "entityId": "trf_e2e_test_1792601482818",
+      "details": {
+        "from": "AWAITING_FUNDING",
+        "to": "FUNDED",
+        "reason": "INR 10000 confirmed by on-ramp provider (Razorpay Sandbox Direct)",
+        "actorRole": "PROVIDER"
+      },
+      "createdAt": "2026-10-21T16:51:22.820Z"
+    },
+    {
+      "id": "audit_1792601467377_hzfw",
+      "action": "STATUS_TRANSITION_COMPLETED",
+      "entityType": "Transfer",
+      "entityId": "trf_e2e_test_1792601467295",
+      "details": {
+        "from": "PAYOUT_PENDING",
+        "to": "COMPLETED",
+        "reason": "Funds successfully delivered into recipient's account. Payout confirmed by clearing partner.",
+        "actorRole": "PROVIDER"
+      },
+      "createdAt": "2026-10-21T16:51:07.377Z"
+    },
+    {
+      "id": "audit_1792601467358_ubzz",
+      "action": "STATUS_TRANSITION_PAYOUT_PENDING",
+      "entityType": "Transfer",
+      "entityId": "trf_e2e_test_1792601467295",
+      "details": {
+        "from": "CRYPTO_SETTLED",
+        "to": "PAYOUT_PENDING",
+        "reason": "Initiating fiat local currency payout of USD 115.31 to destination bank",
+        "actorRole": "PROVIDER"
+      },
+      "createdAt": "2026-10-21T16:51:07.358Z"
+    },
+    {
+      "id": "audit_1792601467346_vyin",
+      "action": "STATUS_TRANSITION_CRYPTO_SETTLED",
+      "entityType": "Transfer",
+      "entityId": "trf_e2e_test_1792601467295",
+      "details": {
+        "from": "CRYPTO_TRANSFER_PENDING",
+        "to": "CRYPTO_SETTLED",
+        "reason": "Settled on-chain in Block #64846282 with 5 confirmations (tx: 0xa3a1ef7e...)",
+        "actorRole": "SYSTEM",
+        "metadata": {
+          "txHash": "0xa3a1ef7e3f0600cea14c5dee8b34f18b5a691870b9fcee51fa509863840bb7ea",
+          "explorerUrl": "https://polygonscan.com/tx/0xa3a1ef7e3f0600cea14c5dee8b34f18b5a691870b9fcee51fa509863840bb7ea"
+        }
+      },
+      "createdAt": "2026-10-21T16:51:07.346Z"
+    },
+    {
+      "id": "audit_1792601467333_nzgw",
+      "action": "STATUS_TRANSITION_CRYPTO_TRANSFER_PENDING",
+      "entityType": "Transfer",
+      "entityId": "trf_e2e_test_1792601467295",
+      "details": {
+        "from": "CONVERSION_PENDING",
+        "to": "CRYPTO_TRANSFER_PENDING",
+        "reason": "Broadcasting 115.31 USDC transaction to polygon network",
+        "actorRole": "SYSTEM"
+      },
+      "createdAt": "2026-10-21T16:51:07.333Z"
+    },
+    {
+      "id": "audit_1792601467321_llc7",
+      "action": "STATUS_TRANSITION_CONVERSION_PENDING",
+      "entityType": "Transfer",
+      "entityId": "trf_e2e_test_1792601467295",
+      "details": {
+        "from": "COMPLIANCE_REVIEW",
+        "to": "CONVERSION_PENDING",
+        "reason": "Allocating liquidity pool for 115.31 USDC minting",
+        "actorRole": "SYSTEM"
+      },
+      "createdAt": "2026-10-21T16:51:07.321Z"
+    },
+    {
+      "id": "audit_1792601467308_w284",
+      "action": "STATUS_TRANSITION_COMPLIANCE_REVIEW",
+      "entityType": "Transfer",
+      "entityId": "trf_e2e_test_1792601467295",
+      "details": {
+        "from": "FUNDED",
+        "to": "COMPLIANCE_REVIEW",
+        "reason": "Automated AML & sanctions checks passed with clean risk score (10/100)",
+        "actorRole": "SYSTEM"
+      },
+      "createdAt": "2026-10-21T16:51:07.308Z"
+    },
+    {
+      "id": "audit_1792601467297_jxmt",
+      "action": "STATUS_TRANSITION_FUNDED",
+      "entityType": "Transfer",
+      "entityId": "trf_e2e_test_1792601467295",
+      "details": {
+        "from": "AWAITING_FUNDING",
+        "to": "FUNDED",
+        "reason": "INR 10000 confirmed by on-ramp provider (Razorpay Sandbox Direct)",
+        "actorRole": "PROVIDER"
+      },
+      "createdAt": "2026-10-21T16:51:07.297Z"
+    },
+    {
+      "id": "log_seed_init",
+      "userId": "user_admin_elena",
+      "action": "SYSTEM_BOOTSTRAP",
+      "entityType": "System",
+      "entityId": "global",
+      "details": {
+        "message": "Initialized Borderless sandbox database with seed data"
+      },
+      "createdAt": "2026-10-21T16:51:07.281Z"
+    }
+  ]
+}

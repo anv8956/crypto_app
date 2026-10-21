@@ -1,0 +1,6 @@
+{
+  "name": "Borderless — Stablecoin International Transfer",
+  "description": "Send money globally in seconds using stablecoin liquidity rails, real-time FX locks, compliance screening, and local bank payouts.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

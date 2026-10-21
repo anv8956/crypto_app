@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  borderless-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - DATABASE_URL=postgresql://borderless:secretpassword@postgres:5432/borderless_db?schema=public
+      - REDIS_URL=redis://redis:6379
+      - ONRAMP_WEBHOOK_SECRET=sandbox_onramp_secret_key_8921
+      - OFFRAMP_WEBHOOK_SECRET=sandbox_offramp_secret_key_1034
+    depends_on:
+      - postgres
+      - redis
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      - POSTGRES_USER=borderless
+      - POSTGRES_PASSWORD=secretpassword
+      - POSTGRES_DB=borderless_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+
+volumes:
+  pgdata:

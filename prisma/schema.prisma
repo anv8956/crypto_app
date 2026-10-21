@@ -1,0 +1,467 @@
+// Prisma Schema for Borderless Cross-Border Stablecoin Transfer Platform
+// Datasource: PostgreSQL
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  SENDER
+  RECIPIENT
+  ADMIN
+  COMPLIANCE_OFFICER
+}
+
+enum VerificationStatus {
+  UNVERIFIED
+  PENDING
+  VERIFIED
+  REJECTED
+  DOCS_REQUESTED
+}
+
+enum KycTier {
+  TIER_0_UNVERIFIED  // $0 limit
+  TIER_1_BASIC       // up to $1,000 / ₹80,000
+  TIER_2_ENHANCED    // up to $10,000 / ₹800,000
+  TIER_3_UNLIMITED   // > $10,000 with proof of funds
+}
+
+enum TransferStatus {
+  DRAFT
+  QUOTED
+  AWAITING_FUNDING
+  FUNDED
+  COMPLIANCE_REVIEW
+  CONVERSION_PENDING
+  CRYPTO_TRANSFER_PENDING
+  CRYPTO_SETTLED
+  PAYOUT_PENDING
+  COMPLETED
+  // Exception and failure states
+  CANCELLED
+  FUNDING_FAILED
+  CONVERSION_FAILED
+  CRYPTO_TRANSFER_FAILED
+  PAYOUT_FAILED
+  REFUND_PENDING
+  REFUNDED
+  COMPLIANCE_HOLD
+  MANUAL_REVIEW
+}
+
+enum PaymentMethodType {
+  UPI
+  IMPS
+  NET_BANKING
+  ACH_DEBIT
+  FEDNOW
+  SEPA
+  FASTER_PAYMENTS
+  CARD
+  DOMESTIC_WIRE
+}
+
+enum PayoutMethodType {
+  US_ACH
+  US_FEDNOW
+  US_WIRE
+  IN_IMPS
+  IN_UPI
+  EU_SEPA
+  UK_FPS
+  CRYPTO_WALLET
+}
+
+enum RiskLevel {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+model User {
+  id                String             @id @default(cuid())
+  email             String             @unique
+  passwordHash      String
+  role              Role               @default(SENDER)
+  emailVerified     Boolean            @default(false)
+  twoFactorEnabled  Boolean            @default(false)
+  twoFactorSecret   String?
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+
+  profile           UserProfile?
+  verifications     Verification[]
+  sentTransfers     Transfer[]         @relation("SenderTransfers")
+  receivedTransfers Transfer[]         @relation("RecipientTransfers")
+  savedRecipients   Recipient[]        @relation("SenderSavedRecipients")
+  wallets           Wallet[]
+  notifications     Notification[]
+  auditLogs         AuditLog[]         @relation("UserAuditLogs")
+  assignedComplianceCases ComplianceCase[] @relation("OfficerAssignedCases")
+
+  @@index([email])
+}
+
+model UserProfile {
+  id               String    @id @default(cuid())
+  userId           String    @unique
+  user             User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  legalFirstName   String
+  legalLastName    String
+  countryOfResidence String  // ISO 2-letter, e.g. "IN", "US"
+  phoneNumber      String?
+  addressLine1     String?
+  city             String?
+  state            String?
+  postalCode       String?
+  dateOfBirth      DateTime?
+  taxIdNumber      String?   // PAN in India, SSN/ITIN in US (encrypted in prod)
+  occupation       String?
+  sourceOfFunds    String?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+}
+
+model Verification {
+  id               String             @id @default(cuid())
+  userId           String
+  user             User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tier             KycTier            @default(TIER_0_UNVERIFIED)
+  status           VerificationStatus @default(UNVERIFIED)
+  idDocumentType   String?            // "PASSPORT", "DRIVING_LICENSE", "NATIONAL_ID", "AADHAAR"
+  idDocumentNumber String?
+  idDocumentUrl    String?
+  proofOfAddressUrl String?
+  riskScore        Int                @default(10) // 0-100 scale
+  riskLevel        RiskLevel          @default(LOW)
+  sanctionScreened Boolean            @default(true)
+  pepScreened      Boolean            @default(true) // Politically Exposed Person
+  reviewedBy       String?
+  reviewNotes      String?
+  verifiedAt       DateTime?
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+
+  @@index([userId, status])
+}
+
+model Recipient {
+  id               String             @id @default(cuid())
+  senderId         String
+  sender           User               @relation("SenderSavedRecipients", fields: [senderId], references: [id], onDelete: Cascade)
+  linkedUserId     String?            // If the recipient also has a Borderless account
+  fullName         String
+  email            String
+  phone            String?
+  country          String             // ISO 2-letter, e.g. "US", "IN"
+  payoutMethod     PayoutMethodType
+  relationship     String?            // e.g. "Friend", "Family", "Supplier"
+  isVerified       Boolean            @default(true)
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+
+  bankAccounts     RecipientBankAccount[]
+  transfers        Transfer[]
+
+  @@index([senderId])
+  @@index([email])
+}
+
+model RecipientBankAccount {
+  id               String            @id @default(cuid())
+  recipientId      String
+  recipient        Recipient         @relation(fields: [recipientId], references: [id], onDelete: Cascade)
+  bankName         String
+  accountNumberMasked String         // e.g. "•••• •••• 5678"
+  accountNumberEncrypted String       // Encrypted sensitive payload
+  routingNumber    String?           // US ABA / ACH routing (9 digits)
+  swiftBic         String?           // SWIFT BIC code
+  ifscCode         String?           // Indian IFSC code
+  iban             String?           // European IBAN
+  accountType      String            @default("CHECKING") // "CHECKING" | "SAVINGS"
+  currency         String            // "USD", "INR", "EUR", etc.
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+}
+
+model Wallet {
+  id               String          @id @default(cuid())
+  userId           String
+  user             User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  network          String          // "POLYGON", "ARBITRUM", "BASE", "ETHEREUM"
+  address          String          // Public hex address
+  label            String?
+  isCustodial      Boolean         @default(true)
+  createdAt        DateTime        @default(now())
+
+  @@unique([userId, network, address])
+}
+
+model SupportedCurrency {
+  code             String          @id // "INR", "USD", "EUR", "GBP"
+  name             String
+  symbol           String
+  decimals         Int             @default(2)
+  isSource         Boolean         @default(true)
+  isDestination    Boolean         @default(true)
+  minTransferFiat  Decimal
+  maxTransferFiat  Decimal
+  payoutMethods    PayoutMethodType[]
+}
+
+model SupportedNetwork {
+  id               String          @id // "polygon", "arbitrum", "base", "ethereum"
+  name             String          // "Polygon PoS", "Arbitrum One", "Base", "Ethereum"
+  chainId          Int
+  rpcUrl           String
+  blockExplorerUrl String
+  averageBlockTimeSec Int
+  nativeCurrency   String          // "MATIC", "ETH"
+  isTestnet        Boolean         @default(true)
+}
+
+model Stablecoin {
+  id               String          @id @default(cuid())
+  symbol           String          // "USDC", "USDT", "EURC"
+  name             String          // "USD Coin"
+  networkId        String          // "polygon", "arbitrum", etc.
+  contractAddress  String
+  decimals         Int             @default(6)
+  issuer           String          // "Circle", "Tether"
+  isActive         Boolean         @default(true)
+
+  @@unique([symbol, networkId])
+}
+
+model ExchangeQuote {
+  id               String          @id @default(cuid())
+  quoteReference   String          @unique
+  senderId         String
+  sourceCurrency   String          // e.g. "INR"
+  sourceAmount     Decimal
+  targetCurrency   String          // e.g. "USD"
+  targetAmount     Decimal
+  stablecoinSymbol String          // "USDC"
+  stablecoinAmount Decimal
+  networkId        String          // "polygon"
+  fxRateSourceToUSD Decimal        // e.g. 0.01183 (1 INR = 0.01183 USD)
+  marketRate       Decimal         // e.g. 84.50 INR per USD
+  guaranteedRate   Decimal
+  spreadPercent    Decimal         @default(0.35)
+  expiresAt        DateTime
+  isLocked         Boolean         @default(true)
+  createdAt        DateTime        @default(now())
+
+  transfers        Transfer[]
+  feeBreakdown     FeeBreakdown?
+
+  @@index([quoteReference])
+}
+
+model FeeBreakdown {
+  id               String          @id @default(cuid())
+  quoteId          String          @unique
+  quote            ExchangeQuote   @relation(fields: [quoteId], references: [id], onDelete: Cascade)
+  onrampFeeFiat    Decimal
+  applicationFeeFiat Decimal
+  networkFeeFiat   Decimal
+  offrampFeeFiat   Decimal
+  totalFeeFiat     Decimal
+  totalChargedFiat Decimal
+  createdAt        DateTime        @default(now())
+}
+
+model Transfer {
+  id               String          @id @default(cuid())
+  transferNumber   String          @unique // e.g. "TRF-2026-IN-US-8941"
+  senderId         String
+  sender           User            @relation("SenderTransfers", fields: [senderId], references: [id])
+  recipientId      String
+  recipient        Recipient       @relation(fields: [recipientId], references: [id])
+  recipientUserId  String?
+  recipientUser    User?           @relation("RecipientTransfers", fields: [recipientUserId], references: [id])
+  quoteId          String
+  quote            ExchangeQuote   @relation(fields: [quoteId], references: [id])
+
+  status           TransferStatus  @default(DRAFT)
+  idempotencyKey   String          @unique
+  purposeOfPayment String          // e.g. "EDUCATION", "FAMILY_SUPPORT", "GIFT", "SERVICES"
+  senderNotes      String?
+
+  sourceCurrency   String
+  sourceAmount     Decimal
+  targetCurrency   String
+  targetAmount     Decimal
+  stablecoinSymbol String
+  stablecoinAmount Decimal
+  settledAmount    Decimal?
+
+  fundedAt         DateTime?
+  cryptoSettledAt  DateTime?
+  completedAt      DateTime?
+  cancelledAt      DateTime?
+
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
+
+  events           TransferEvent[]
+  fundingOrder     FundingOrder?
+  blockchainTx     BlockchainTransaction?
+  payoutOrder      PayoutOrder?
+  complianceCase   ComplianceCase?
+  refunds          Refund[]
+
+  @@index([senderId, status])
+  @@index([transferNumber])
+  @@index([idempotencyKey])
+}
+
+model TransferEvent {
+  id               String          @id @default(cuid())
+  transferId       String
+  transfer         Transfer        @relation(fields: [transferId], references: [id], onDelete: Cascade)
+  previousStatus   TransferStatus?
+  newStatus        TransferStatus
+  reason           String?
+  metadata         String?         // JSON blob with context
+  actorRole        String          // "SYSTEM", "SENDER", "ADMIN", "PROVIDER"
+  actorId          String?
+  createdAt        DateTime        @default(now())
+
+  @@index([transferId])
+}
+
+model FundingOrder {
+  id               String          @id @default(cuid())
+  transferId       String          @unique
+  transfer         Transfer        @relation(fields: [transferId], references: [id], onDelete: Cascade)
+  providerName     String          // "RazorpaySandbox", "StripeSandbox", "UPIPlatform"
+  providerOrderId  String          @unique
+  paymentMethod    PaymentMethodType
+  amount           Decimal
+  currency         String
+  status           String          // "INITIATED", "AUTHORIZED", "CAPTURED", "FAILED"
+  paymentDetails   String?         // masked VPA or bank ref
+  authorizedAt     DateTime?
+  createdAt        DateTime        @default(now())
+}
+
+model BlockchainTransaction {
+  id               String          @id @default(cuid())
+  transferId       String          @unique
+  transfer         Transfer        @relation(fields: [transferId], references: [id], onDelete: Cascade)
+  networkId        String          // "polygon", "arbitrum", "base"
+  tokenSymbol      String          // "USDC"
+  tokenAddress     String
+  txHash           String          @unique
+  fromAddress      String
+  toAddress        String
+  amountUnits      Decimal
+  gasPriceGwei     Decimal
+  gasUsed          Decimal
+  blockNumber      Int
+  confirmations    Int             @default(1)
+  status           String          // "SUBMITTED", "CONFIRMED", "FINALIZED", "FAILED"
+  explorerUrl      String
+  settledAt        DateTime?
+  createdAt        DateTime        @default(now())
+
+  @@index([txHash])
+}
+
+model PayoutOrder {
+  id               String          @id @default(cuid())
+  transferId       String          @unique
+  transfer         Transfer        @relation(fields: [transferId], references: [id], onDelete: Cascade)
+  providerName     String          // "BridgeUSDSandbox", "CircleMintSandbox", "FedNowRail"
+  providerPayoutId String          @unique
+  payoutMethod     PayoutMethodType
+  amount           Decimal
+  currency         String
+  destinationBank  String
+  accountNumberMasked String
+  fedReferenceNumber String?       // US Fedwire / FedNow clearing ID
+  status           String          // "INITIATED", "IN_CLEARING", "PAID_OUT", "REJECTED"
+  paidOutAt        DateTime?
+  createdAt        DateTime        @default(now())
+}
+
+model ComplianceCase {
+  id               String          @id @default(cuid())
+  transferId       String          @unique
+  transfer         Transfer        @relation(fields: [transferId], references: [id], onDelete: Cascade)
+  assignedOfficerId String?
+  assignedOfficer  User?           @relation("OfficerAssignedCases", fields: [assignedOfficerId], references: [id])
+  riskScore        Int             // 0 to 100
+  riskLevel        RiskLevel
+  flagReasons      String          // JSON array of triggered rules, e.g. ["HIGH_AMOUNT_TIER_2", "VELOCITY_LIMIT"]
+  sanctionHit      Boolean         @default(false)
+  travelRuleStatus String          // "PASSED", "EXEMPT", "INFO_REQUIRED"
+  status           String          // "OPEN", "IN_REVIEW", "CLEARED", "REJECTED", "ESCALATED"
+  resolutionNotes  String?
+  resolvedAt       DateTime?
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
+
+  riskAssessments  RiskAssessment[]
+}
+
+model RiskAssessment {
+  id               String          @id @default(cuid())
+  complianceCaseId String
+  complianceCase   ComplianceCase  @relation(fields: [complianceCaseId], references: [id], onDelete: Cascade)
+  ruleName         String          // e.g. "INDIA_LRS_LIMIT_CHECK", "OFAC_SANCTION_MATCH"
+  passed           Boolean
+  details          String
+  createdAt        DateTime        @default(now())
+}
+
+model Refund {
+  id               String          @id @default(cuid())
+  transferId       String
+  transfer         Transfer        @relation(fields: [transferId], references: [id], onDelete: Cascade)
+  refundReference  String          @unique
+  amount           Decimal
+  currency         String
+  reason           String
+  status           String          // "REQUESTED", "PROCESSING", "COMPLETED", "FAILED"
+  approvedByAdminId String?
+  processedAt      DateTime?
+  createdAt        DateTime        @default(now())
+}
+
+model Notification {
+  id               String          @id @default(cuid())
+  userId           String
+  user             User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title            String
+  body             String
+  type             String          // "TRANSFER_STATUS", "KYC_UPDATE", "PAYMENT_RECEIVED", "SECURITY_ALERT"
+  transferId       String?
+  isRead           Boolean         @default(false)
+  createdAt        DateTime        @default(now())
+
+  @@index([userId, isRead])
+}
+
+model AuditLog {
+  id               String          @id @default(cuid())
+  userId           String?
+  user             User?           @relation("UserAuditLogs", fields: [userId], references: [id])
+  action           String          // "TRANSFER_INITIATED", "COMPLIANCE_HOLD_RELEASED", "KYC_VERIFIED"
+  entityType       String          // "Transfer", "Verification", "PayoutOrder"
+  entityId         String
+  details          String          // JSON metadata
+  ipAddress        String?
+  userAgent        String?
+  createdAt        DateTime        @default(now())
+
+  @@index([entityType, entityId])
+}
